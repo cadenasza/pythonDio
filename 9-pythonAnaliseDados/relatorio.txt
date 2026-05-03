@@ -1,0 +1,4 @@
+Realtorio diario de vendas
+Data: 29/11/2005
+Total de vendas: R$ 1000,00
+Vendedor: Leo
