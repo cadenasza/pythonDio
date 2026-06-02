@@ -44,6 +44,8 @@ def exemplo_listas_criacao_acesso() -> None:
     print("lista1[::2] (de 2 em 2):", lista1[::2])
 
 
+
+
 def exemplo_listas_metodos() -> None:
     titulo("2) Listas: métodos comuns")
 
@@ -91,7 +93,6 @@ def exemplo_listas_metodos() -> None:
 
     frutas.clear()
     print("clear() ->", frutas)
-
 
 def exemplo_matriz() -> None:
     titulo("3) Matriz (lista de listas)")
@@ -237,6 +238,7 @@ def exemplo_sets() -> None:
     # Sets:
     # - não permitem duplicatas
     # - não são indexados (não dá pra acessar por posição)
+    set0 = set()  # set vazio
     set1 = {1, 2, 3, 3, 4, 5}  # duplicatas são removidas
     set2 = {"maçã", "banana", "laranja"}
     set3 = {1, "maçã", 3.14, True}
@@ -271,6 +273,8 @@ def exemplo_operacoes_set() -> None:
     print("união (A | B):", set_a.union(set_b))
     print("interseção (A & B):", set_a.intersection(set_b))
     print("diferença (A - B):", set_a.difference(set_b))
+    print("issubset (B ⊆ A):", set_b.issubset(set_a)) # elemnetos de B estão em A? False
+    print("issuperset (A ⊇ B):", set_a.issuperset(set_b)) # elemnetos de A estão em B? False
 
 
 def main() -> None:
