@@ -98,6 +98,105 @@
     
 
 # abstração - ignorar o irrelevante e deixar apenas o principal, se concentrar apenas nas características essenciais de um objeto, sem se preocupar com detalhes de implementação
+# metodo abstrato: método declarado em uma classe base que deve ser implementado por classes derivadas, serve como um contrato para garantir que as subclasses implementem certos métodos
+# precisa do abc (Abstract Base Class) para criar métodos abstratos em Python, usando o módulo abc e decoradores @abstractmethod
+# from abc import ABC, abstractmethod
+# class Forma(ABC):
+#     @abstractmethod
+#     def area(self):
+#         pass  # Método abstrato, sem implementação
+# class Retangulo(Forma):
+#     def __init__(self, largura, altura):
+#         self.largura = largura
+#         self.altura = altura
+#     def area(self):
+#         return self.largura * self.altura
+# class Circulo(Forma):
+#     def __init__(self, raio):
+#         self.raio = raio
+#     def area(self):
+#         return 3.14 * (self.raio ** 2)
+
+# retangulo = Retangulo(5, 3)
+# circulo = Circulo(4)
+# print(f"Área do retângulo: {retangulo.area()}")  # Chama o método area do retângulo
+# print(f"Área do círculo: {circulo.area()}")  # Chama o método
+
+
+# ENCAPSULAMENTO 
+# convencao eh usar _ para indicar que um atributo ou método é protegido (não deve ser acessado diretamente fora da classe ou subclasses) e __ para indicar que é privado (não deve ser acessado diretamente de forma alguma, mesmo dentro de subclasses)
+# existe a forma de usar __ para criar atributos privados, mas eles ainda podem ser acessados usando o nome mangling (nome da classe + nome do atributo), mas isso é desencorajado e deve ser evitado, pois quebra o encapsulamento e a intenção de privacidade do atributo
+# exemplo de classe com encapsulamento usando atributos privados
+class Conta:   
+    def __init__(self,nro_agencia, saldo=0):
+        self.__saldo = saldo  # Atributo privado
+        self.nro_agencia = nro_agencia  # Atributo público
+        
+    def depositar(self, valor):
+        if valor > 0:
+            self.__saldo += valor
+            return f"Depósito de R${valor:.2f} realizado. Saldo atual: R${self.__saldo:.2f}"
+        else:
+            return "Valor de depósito deve ser positivo."
+    
+    def sacar(self, valor):
+        if valor > self.__saldo:
+            return f"Valor de {valor:.2f} excede o saldo disponível de R${self.__saldo:.2f}."
+        else:
+            self.__saldo -= valor
+            return f"Saque de R${valor:.2f} realizado. Saldo atual: R${self.__saldo:.2f}"
+        
+    def __str__(self):
+        return f"Conta Agência: {self.nro_agencia}, Saldo: R${self.__saldo:.2f}"
+
+conta = Conta("0001", 100)
+print(conta.depositar(50))  # Depósito de R$50.00 realizado. Saldo atual: R$150.00
+print(conta.sacar(30))  # Saque de R$30.00 realizado. Saldo atual: R$120.00
+print(conta.sacar(200))  # Valor de R$200.00 excede o saldo disponível de R$120.00.
+print(conta)  # Conta Agência: 0001, Saldo: R$120.00
+
+# Properties: permitem criar métodos que podem ser acessados como atributos, usando o decorador @property para criar um método getter e @nome_do_metodo.setter para criar um setter
+# class Produto:
+#     def __init__(self, nome, preco):
+#         self.nome = nome
+#         self.__preco = preco  # Atributo privado
+
+#     @property # método para acessar o valor do atributo preço, usando o decorador @property
+#     def preco(self):
+#         return self.__preco
+    
+#     @preco.setter # método para definir o valor do atributo preço, usando o decorador @nome_do_metodo.setter
+#     def preco(self, valor):
+#         if valor < 0:
+#             raise ValueError("O preço não pode ser negativo.")
+#         self.__preco = valor
+        
+#     @preco.deleter # método para deletar o atributo preço, usando o decorador @nome_do_metodo.deleter
+#     def preco(self):
+#         del self.__preco
+        
+# produto = Produto("Notebook", 2500)
+# print(produto.preco)  # Acessa o preço usando o getter
+# produto.preco = 3000  # Atualiza o preço usando o setter
+# print(produto.preco)  # Acessa o preço atualizado usando o getter
+
+
+# Exemplo de classe com encapsulamento usando propriedades para calcular a idade a partir do ano de nascimento
+import datetime
+class Pessoa:
+    def __init__(self, nome, ano_nascimento):
+        self.__nome = nome
+        self.__ano_nascimento = ano_nascimento
+        
+
+    @property
+    def idade(self):
+        _ano_atual = datetime.datetime.now().year
+        return _ano_atual - self.__ano_nascimento
+
+pessoa = Pessoa("Carlos", 1990)
+print(pessoa.__nome + " " + str(pessoa.idade))  # Acessa o nome e idade usando o getter
+
 
 
 
@@ -241,5 +340,3 @@
 # print(livro)
 # qtd_paginas_avancar = int(input("Digite a quantidade de páginas que deseja avançar: "))
 # livro.avancar_paginas(qtd_paginas_avancar)
-
-
